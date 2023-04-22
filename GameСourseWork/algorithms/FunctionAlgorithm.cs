@@ -23,7 +23,7 @@ namespace GameСourseWork
             return Name;
         }
         
-        private int bfs(int[,] board, Point s, Point opponent)
+        private int bfs(int[,] board, Point s, Point opponent, Point player)
         {
             if (s.X < 0 || s.X > 8) return -1;
             if (s.Y < 0 || s.Y > 8) return -1;
@@ -38,6 +38,7 @@ namespace GameСourseWork
             while (q.Count > 0)
             {
                 Point v = q.Dequeue();
+                if (v == player) continue;
                 if (v.Y>0 && !used[v.Y-1, v.X] && board[v.Y-1, v.X]>0)
                 {
                     used[v.Y - 1, v.X] = true;
@@ -124,10 +125,10 @@ namespace GameСourseWork
         {
             char[] move = { 'U', 'R', 'L', 'D' };
 
-            int[] c = { bfs(board, new Point(player.X, player.Y - 1), opponent),
-             bfs(board, new Point(player.X + 1, player.Y), opponent),
-             bfs(board, new Point(player.X - 1, player.Y), opponent),
-             bfs(board, new Point(player.X, player.Y + 1), opponent)};
+            int[] c = { bfs(board, new Point(player.X, player.Y - 1), opponent, player),
+             bfs(board, new Point(player.X + 1, player.Y), opponent, player),
+             bfs(board, new Point(player.X - 1, player.Y), opponent, player),
+             bfs(board, new Point(player.X, player.Y + 1), opponent, player)};
             int[] k = { 0, 0, 0, 0 };
             initK(board, player, ref k);
             int im = 0;
