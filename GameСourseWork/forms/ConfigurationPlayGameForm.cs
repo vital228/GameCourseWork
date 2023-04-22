@@ -18,9 +18,11 @@ namespace GameСourseWork
             comboBoxPlayer1.Items.Add("Человек");
             comboBoxPlayer1.Items.Add(new FunctionAlgorithm());
             comboBoxPlayer1.Items.Add(new FollowEnemyAlgorithm());
+            // TODO: Add an AI algorithm for selecting the first player for the game. See the example above.
             comboBoxPlayer2.Items.Add("Человек");
             comboBoxPlayer2.Items.Add(new FunctionAlgorithm());
             comboBoxPlayer2.Items.Add(new FollowEnemyAlgorithm());
+            // TODO: Add an AI algorithm for selecting the second player for the game. See the example above.
             comboBoxPlayer1.SelectedIndex = 0;
             comboBoxPlayer2.SelectedIndex = 0;
         }

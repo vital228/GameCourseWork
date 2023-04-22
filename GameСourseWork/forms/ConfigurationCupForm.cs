@@ -35,6 +35,8 @@ namespace GameСourseWork
             Directory.CreateDirectory(path);
             cup.AddPlayer(new FollowEnemyAlgorithm());
             cup.AddPlayer(new FunctionAlgorithm());
+            // TODO: Add an AI algorithm to the tournament. See the example above.
+
             cup.PlayTournament((int)numericUpDown1.Value);
             string s = cup.ToHtmlTable();
 
