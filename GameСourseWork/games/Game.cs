@@ -167,7 +167,16 @@ namespace GameСourseWork
             if (winner > 0) return winner;
             while (true)
             {
-                char move = ai[1].step(ToOneZero(board), player[1], player[2]);
+                char move;
+                try
+                {
+                    move = ai[1].step(ToOneZero(board), player[1], player[2]);
+                }
+                catch (Exception e)
+                {
+                    winner = 2;
+                    return 2;
+                }
                 lastTurn = move;
                 int isCorrectMove = movePlayer(move, ref player[1]);
                 isTurn = 2;
@@ -177,8 +186,15 @@ namespace GameСourseWork
                     informationBoards[informationBoards.Count - 1].Player[1] = new Point(-1, -1);
                     return 2; 
                 }
-
-                move = ai[2].step(ToOneZero(board), player[2], player[1]);
+                try
+                {
+                    move = ai[2].step(ToOneZero(board), player[2], player[1]);
+                }
+                catch(Exception e)
+                {
+                    winner = 1;
+                    return 1;
+                }
                 lastTurn = move;
                 isCorrectMove = movePlayer(move, ref player[2]);
                 isTurn = 1;
@@ -196,7 +212,16 @@ namespace GameСourseWork
         {
             if (winner > 0) return winner;
             if (ai[isTurn] == null) return -1;
-            char move = ai[isTurn].step(ToOneZero(board), player[isTurn], player[3 - isTurn]);
+            char move = '\0';
+            try
+            {
+                move = ai[isTurn].step(ToOneZero(board), player[isTurn], player[3 - isTurn]);
+            }
+            catch (Exception e)
+            {
+                winner = 3 - isTurn;
+                return 3 - isTurn;
+            }
             lastTurn = move;
             int isCorrectMove = movePlayer(move, ref player[isTurn]);
             isTurn = 3 - isTurn;
@@ -227,7 +252,6 @@ namespace GameСourseWork
 
         public void saveGame(string fileName)
         {
-            
 
             // Сериализуем список informationBoards в JSON-строку
             string jsonString = JsonConvert.SerializeObject(informationBoards, Formatting.Indented);
