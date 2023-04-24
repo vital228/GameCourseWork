@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GameСourseWork.algorithms;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -35,6 +36,9 @@ namespace GameСourseWork
             Directory.CreateDirectory(path);
             cup.AddPlayer(new FollowEnemyAlgorithm());
             cup.AddPlayer(new FunctionAlgorithm());
+            cup.AddPlayer(new ToCentreAlgorithm());
+            cup.AddPlayer(new ToEdgeBoardAlgorithm());
+            cup.AddPlayer(new ToFarthestCellAlgorithm());
             // TODO: Add an AI algorithm to the tournament. See the example above.
 
             cup.PlayTournament((int)numericUpDown1.Value);

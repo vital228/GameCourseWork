@@ -47,6 +47,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="algorithms\AbstractToCellAlgorithm.cs" />
+    <Compile Include="algorithms\ToCentreAlgorithm.cs" />
+    <Compile Include="algorithms\ToEdgeBoardAlgorithm.cs" />
+    <Compile Include="algorithms\ToFarthestCellAlgorithm.cs" />
     <Compile Include="forms\ConfigurationCupForm.cs">
       <SubType>Form</SubType>
     </Compile>
