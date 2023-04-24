@@ -39,6 +39,7 @@ namespace GameСourseWork
             cup.AddPlayer(new ToCentreAlgorithm());
             cup.AddPlayer(new ToEdgeBoardAlgorithm());
             cup.AddPlayer(new ToFarthestCellAlgorithm());
+            cup.AddPlayer(new PotentialAlgorithm());
             // TODO: Add an AI algorithm to the tournament. See the example above.
 
             cup.PlayTournament((int)numericUpDown1.Value);

@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="algorithms\AbstractToCellAlgorithm.cs" />
+    <Compile Include="algorithms\PotentialAlgorithm.cs" />
     <Compile Include="algorithms\ToCentreAlgorithm.cs" />
     <Compile Include="algorithms\ToEdgeBoardAlgorithm.cs" />
     <Compile Include="algorithms\ToFarthestCellAlgorithm.cs" />

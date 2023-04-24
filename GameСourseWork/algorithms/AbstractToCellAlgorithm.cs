@@ -23,7 +23,7 @@ namespace GameСourseWork.algorithms
             return Name;
         }
 
-        public void Reset()
+        public virtual void Reset()
         {
         }
 
@@ -77,7 +77,7 @@ namespace GameСourseWork.algorithms
         protected abstract int FunctionSort (Cell c1, Cell c2);
 
 
-        public char step(int[,] board, Point player, Point opponent)
+        public virtual char step(int[,] board, Point player, Point opponent)
         {
             setAvailableCells();
             char[] move = { 'U', 'R', 'L', 'D' };
