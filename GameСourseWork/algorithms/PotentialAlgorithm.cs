@@ -58,7 +58,7 @@ namespace GameСourseWork.algorithms
             bfs(board, player, opponent);
             int[,] potential = new int[9, 9];
             int mx = 0;
-            List<Point> mxPoint = new List<Point>();
+            List <Cell> mxPoint = new List<Cell>();
             for (int i = 0; i < 9; i++)
             {
                 for (int j = 0; j < 9; j++)
@@ -86,13 +86,13 @@ namespace GameСourseWork.algorithms
                         }
                         if (potential[i,j] == mx)
                         {
-                            mxPoint.Add(new Point(j, i));
+                            mxPoint.Add(availableCells[i,j]);
                         }
                         if (potential[i, j] > mx)
                         {
                             mxPoint.Clear();
                             mx = potential[i, j];
-                            mxPoint.Add(new Point(j, i));
+                            mxPoint.Add(availableCells[i, j]);
                         }
                     }
                         
@@ -101,9 +101,10 @@ namespace GameСourseWork.algorithms
             visitsCount[player.Y, player.X]++;
             if (mxPoint.Count > 0)
             {
-                Random random = new Random();
-                int k = random.Next(0, mxPoint.Count);
-                return move[availableCells[mxPoint[k].Y, mxPoint[k].X].direction];
+                // Random random = new Random();
+                //int k = random.Next(0, mxPoint.Count);
+                mxPoint.Sort(FunctionSort);
+                return move[mxPoint[0].direction];
             }
             else
             {
@@ -114,7 +115,7 @@ namespace GameСourseWork.algorithms
 
         protected override int FunctionSort(Cell c1, Cell c2)
         {
-            throw new NotImplementedException();
+            return c2.distance - c1.distance;
         }
     }
 }
