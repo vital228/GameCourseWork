@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GameСourseWork.games;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -12,6 +13,7 @@ namespace GameСourseWork
     {
         private List<IArtificialIntelligence> _players;
         private string _name;
+        private GeneratorBoard.Board _typeBoard;
 
         private TableCup<Point> standing;
 
@@ -21,11 +23,13 @@ namespace GameСourseWork
             player2.Reset();
         }
 
-        public Tournament(string name)
+        public Tournament(string name):this(name, GeneratorBoard.Board.None){}
+        public Tournament(string name ,GeneratorBoard.Board typeBoard)
         {
             _players = new List<IArtificialIntelligence>();
             standing = new TableCup<Point>();
             _name = name;
+            _typeBoard = typeBoard;
         }
 
         public Point this[int i, int j]
@@ -61,7 +65,7 @@ namespace GameСourseWork
                 for (int j = 0; j < _players.Count; j++)
                 {
                     ResetPlayers(_players[i], _players[j]);
-                    Game game = new Game(_players[i], _players[j]);
+                    Game game = new Game(_players[i], _players[j], _typeBoard);
                     int winner = game.playGame();
                     if (winner == 1)
                     {

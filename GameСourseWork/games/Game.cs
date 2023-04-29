@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using Newtonsoft.Json;
+using GameСourseWork.games;
+using static GameСourseWork.games.GeneratorBoard;
 
 namespace GameСourseWork
 {
@@ -32,21 +34,13 @@ namespace GameСourseWork
         public List<InformationBoard> informationBoards = new List<InformationBoard>();
         int winner = 0;
 
-        public Game()
+        public Game():this(Board.None){}
+
+        public Game(Board type)
         {
-            board = new int[9, 9];
+            board = GeneratorBoard.Generator(type);
             player = new Point[3];
             ai = new IArtificialIntelligence[3];
-            Random random = new Random();
-            for (int y = 0; y < 9; y++)
-            {
-                for (int x = 0; x <= y; x++)
-                {
-                    // На клетках случайно расставляем цифры от 1 до 5
-                    board[y, x] = random.Next(1, 6);
-                    board[8 - y, 8 - x] = board[y, x];
-                }
-            }
             player[1] = new Point(1, 1);
             player[2] = new Point(7, 7);
             isTurn = 1;
@@ -75,7 +69,9 @@ namespace GameСourseWork
             return info;
         }
 
-        public Game(IArtificialIntelligence ai1, IArtificialIntelligence ai2) : this()
+        public Game(IArtificialIntelligence ai1, IArtificialIntelligence ai2) : this(ai1, ai2, Board.None){}
+
+        public Game(IArtificialIntelligence ai1, IArtificialIntelligence ai2, Board type) : this(type)
         {
             ai[1] = ai1;
             ai[2] = ai2;

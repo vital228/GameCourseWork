@@ -10,6 +10,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static GameСourseWork.games.GeneratorBoard;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace GameСourseWork
@@ -19,6 +20,7 @@ namespace GameСourseWork
         public ConfigurationCupForm()
         {
             InitializeComponent();
+            comboBoxBoard.SelectedIndex = 0;
         }
 
         private void buttonStartCup_Click(object sender, EventArgs e)
@@ -27,7 +29,7 @@ namespace GameСourseWork
             {
                 return;
             }
-            var cup = new Tournament(textBox1.Text);
+            var cup = new Tournament(textBox1.Text, (Board)comboBoxBoard.SelectedIndex);
 
             string folderName = textBox1.Text;
 
@@ -61,5 +63,6 @@ namespace GameСourseWork
             // сохраняем текст в файл
             File.WriteAllText(path, text);
         }
+
     }
 }

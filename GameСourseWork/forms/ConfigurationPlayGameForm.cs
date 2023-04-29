@@ -1,6 +1,7 @@
 ﻿using GameСourseWork.algorithms;
 using System;
 using System.Windows.Forms;
+using static GameСourseWork.games.GeneratorBoard;
 
 namespace GameСourseWork
 {
@@ -27,6 +28,7 @@ namespace GameСourseWork
             // TODO: Add an AI algorithm for selecting the second player for the game. See the example above.
             comboBoxPlayer1.SelectedIndex = 0;
             comboBoxPlayer2.SelectedIndex = 0;
+            comboBoxBoard.SelectedIndex = 0;
         }
 
         private void buttonStartGame_Click(object sender, EventArgs e)
@@ -50,7 +52,7 @@ namespace GameСourseWork
                 ai2 = (IArtificialIntelligence) comboBoxPlayer2.SelectedItem;
             }
 
-            Game game = new Game(ai1, ai2);
+            Game game = new Game(ai1, ai2, (Board) comboBoxBoard.SelectedIndex);
             PlayGameForm form = new PlayGameForm(game);
             form.Show();
         }

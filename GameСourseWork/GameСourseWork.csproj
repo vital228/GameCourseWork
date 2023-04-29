@@ -66,6 +66,7 @@
     </Compile>
     <Compile Include="algorithms\FollowEnemyAlgorithm.cs" />
     <Compile Include="algorithms\FunctionAlgorithm.cs" />
+    <Compile Include="games\GeneratorBoard.cs" />
     <Compile Include="games\TableCup.cs" />
     <Compile Include="games\Tournament.cs" />
     <Compile Include="games\Game.cs" />

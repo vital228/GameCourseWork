@@ -33,12 +33,14 @@
             this.buttonStartCup = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.comboBoxBoard = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
             // numericUpDown1
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(215, 94);
+            this.numericUpDown1.Location = new System.Drawing.Point(215, 82);
             this.numericUpDown1.Minimum = new decimal(new int[] {
             1,
             0,
@@ -56,7 +58,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(37, 96);
+            this.label1.Location = new System.Drawing.Point(37, 82);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(136, 16);
             this.label1.TabIndex = 1;
@@ -64,7 +66,7 @@
             // 
             // buttonStartCup
             // 
-            this.buttonStartCup.Location = new System.Drawing.Point(135, 144);
+            this.buttonStartCup.Location = new System.Drawing.Point(133, 182);
             this.buttonStartCup.Name = "buttonStartCup";
             this.buttonStartCup.Size = new System.Drawing.Size(120, 23);
             this.buttonStartCup.TabIndex = 2;
@@ -88,11 +90,41 @@
             this.textBox1.Size = new System.Drawing.Size(120, 22);
             this.textBox1.TabIndex = 4;
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label4.Location = new System.Drawing.Point(36, 125);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(75, 18);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "Тип поля:";
+            // 
+            // comboBoxBoard
+            // 
+            this.comboBoxBoard.FormattingEnabled = true;
+            this.comboBoxBoard.Items.AddRange(new object[] {
+            "Любое",
+            "Большая",
+            "Маленькое",
+            "Единичное",
+            "Центр",
+            "Край",
+            "Около игроков",
+            "Далеко от игроков",
+            "Каньон"});
+            this.comboBoxBoard.Location = new System.Drawing.Point(215, 121);
+            this.comboBoxBoard.Name = "comboBoxBoard";
+            this.comboBoxBoard.Size = new System.Drawing.Size(121, 24);
+            this.comboBoxBoard.TabIndex = 7;
+            // 
             // ConfigurationCupForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(400, 230);
+            this.Controls.Add(this.comboBoxBoard);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.buttonStartCup);
@@ -113,5 +145,7 @@
         private System.Windows.Forms.Button buttonStartCup;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ComboBox comboBoxBoard;
     }
 }
