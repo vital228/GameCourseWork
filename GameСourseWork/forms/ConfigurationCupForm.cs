@@ -59,7 +59,7 @@ namespace GameСourseWork
         private void save(string file, string text)
         {
             
-            string path = textBox1.Text + "\\" + file + ".html";
+            string path = textBox1.Text + "_" + file + ".html";
             // сохраняем текст в файл
             File.WriteAllText(path, text);
         }

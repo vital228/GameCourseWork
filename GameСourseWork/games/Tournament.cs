@@ -6,6 +6,7 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace GameСourseWork
 {
@@ -14,6 +15,7 @@ namespace GameСourseWork
         private List<IArtificialIntelligence> _players;
         private string _name;
         private GeneratorBoard.Board _typeBoard;
+        private int rounds = 0;
 
         private TableCup<Point> standing;
 
@@ -60,6 +62,7 @@ namespace GameСourseWork
 
         public void PlayTournament()
         {
+            rounds++;
             for (int i = 0; i < _players.Count; i++)
             {
                 for (int j = 0; j < _players.Count; j++)
@@ -93,27 +96,82 @@ namespace GameСourseWork
         public string ToHtmlTable()
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine("<table border=\"1\">");
 
+            sb.AppendLine("<table border=\"1\">");
+            sb.AppendLine($"<caption>{_name}</caption>");
             // создаем заголовок таблицы
             sb.AppendLine("<tr><td></td>");
             for (int j = 0; j < standing.Columns; j++)
             {
                 sb.AppendLine($"<th>{_players[j].Name}</th>");
             }
+            sb.AppendLine("<th>Avg.W1</th>");
+            sb.AppendLine("<th>w1</th>");
+            sb.AppendLine("<th>d1</th>");
+            sb.AppendLine("<th>Avg.W2</th>");
+            sb.AppendLine("<th>w2</th>");
+            sb.AppendLine("<th>d2</th>");
             sb.AppendLine("</tr>");
 
             // создаем строки таблицы
             for (int i = 0; i < standing.Rows; i++)
             {
                 sb.AppendLine($"<tr><th>{_players[i].Name}</th>");
+                int sum = 0;
+                int countWin = 0;
+                int countDraw = 0;
+                int sum2 = 0;
+                int countWin2 = 0;
+                int countDraw2 = 0;
                 for (int j = 0; j < standing.Columns; j++)
                 {
-                    sb.AppendLine($"<td>{standing[i, j].X} ; {standing[i, j].Y}</td>");
+                    sb.Append("<td BGCOLOR=\"#");
+                    if (standing[i, j].X - 0.1*rounds >= standing[i, j].Y)
+                    {
+                        sb.Append("00FF00");
+                    }else if (standing[i, j].X > standing[i, j].Y)
+                    {
+                        sb.Append("90EE90");
+                    }
+                            
+                    if (standing[i, j].X + 0.1*rounds <= standing[i, j].Y)
+                    {
+                        sb.Append("FF0000");
+                    }else if (standing[i, j].X < standing[i, j].Y)
+                    {
+                        sb.Append("FA8072");
+                    }
+                    if (standing[i, j].X == standing[i, j].Y)
+                    {
+                        sb.Append("FFFFFF");
+                    }
+                    sb.AppendLine($"\">{ standing[i, j].X};{ standing[i, j].Y}</ td > ");
+                    sum += standing[i, j].X;
+                    sum2 += standing[j, i].Y;
+                    if (standing[i,j].X- 0.1 * rounds >= standing[i, j].Y)
+                    {
+                        countWin++;
+                    }else if (Math.Abs(standing[i, j].X - standing[i, j].Y) < 0.1 * rounds)
+                    {
+                        countDraw++;
+                    }
+                    if (standing[j, i].Y - 0.1 * rounds >= standing[j, i].X)
+                    {
+                        countWin2++;
+                    }
+                    else if (Math.Abs(standing[j, i].Y - standing[j, i].X) < 0.1 * rounds)
+                    {
+                        countDraw2++;
+                    }
                 }
+                sb.AppendLine($"<td BGCOLOR=\"#FFFF80\">{sum/_players.Count}</td>");
+                sb.AppendLine($"<td BGCOLOR=\"#FFFF80\">{countWin}</td>");
+                sb.AppendLine($"<td BGCOLOR=\"#FFFF80\">{countDraw}</td>");
+                sb.AppendLine($"<td BGCOLOR=\"#FFFF80\">{sum2/_players.Count}</td>");
+                sb.AppendLine($"<td BGCOLOR=\"#FFFF80\">{countWin2}</td>");
+                sb.AppendLine($"<td BGCOLOR=\"#FFFF80\">{countDraw2}</td>");
                 sb.AppendLine("</tr>");
             }
-
             sb.AppendLine("</table>");
             return sb.ToString();
         }
