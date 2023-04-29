@@ -29,7 +29,7 @@ namespace GameСourseWork
         int[,] board;
         Point[] player;
         public IArtificialIntelligence[] ai;
-        int isTurn;
+        public int isTurn;
         char lastTurn;
         public List<InformationBoard> informationBoards = new List<InformationBoard>();
         int winner = 0;
@@ -246,6 +246,12 @@ namespace GameСourseWork
             return 0;
         }
 
+        public bool canStep(char move)
+        {
+            Point player0 = player[isTurn];
+            int isCorrectMove = movePlayer(move, ref player0);
+            return isCorrectMove == 0;
+        }
         public void saveGame(string fileName)
         {
 

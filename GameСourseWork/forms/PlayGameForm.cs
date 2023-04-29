@@ -120,7 +120,17 @@ namespace GameСourseWork
                 {
                     setBoard(game.informationBoards.Count - 1);
                 }
+            }
 
+            buttonD.Enabled = game.canStep('D');
+            buttonU.Enabled = game.canStep('U');
+            buttonR.Enabled = game.canStep('R');
+            buttonL.Enabled = game.canStep('L');
+            if (!(buttonD.Enabled || buttonL.Enabled || buttonR.Enabled || buttonU.Enabled)) {
+                winner = 3 - game.isTurn;
+                EndGame();
+                Close();
+                return;
             }
         }
 
