@@ -8,9 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace GameСourseWork
+namespace GameСourseWork.forms
 {
-    public partial class GameForm : Form
+    public partial class VisitGameForm : Form
     {
         protected const int Rows = 9;
         protected const int Columns = 9;
@@ -19,10 +19,9 @@ namespace GameСourseWork
 
         protected Game game;
 
-        public GameForm(Game game, string name1, string name2)
+        public VisitGameForm(Game game, string name1, string name2)
         {
             InitializeComponent();
-
             label2.ForeColor = Color.Red;
             label2.Text = name1;
             label3.ForeColor = Color.Blue;
@@ -53,11 +52,6 @@ namespace GameСourseWork
             // Добавляем таблицу на форму
             Controls.Add(table);
         }
-
-
-
-
-
         protected void Cell_Click(object sender, EventArgs e)
         {
             var button = (Button)sender;
@@ -87,13 +81,14 @@ namespace GameСourseWork
                         _cells[row, column].Text = "B";
                         _cells[row, column].ForeColor = Color.Blue;
                     }
-                    else if (game.informationBoards[step].Board[row, column] > 0){
-                        _cells[row, column].Text = game.informationBoards[step].Board[row, column].ToString();
+                    else if (game.informationBoards[step].Board[row, column] > 0)
+                    {
+                        _cells[row, column].Text = (- game.informationBoards[step].Board[row, column] + game.informationBoards[0].Board[row, column]).ToString();
                         _cells[row, column].ForeColor = Color.Green;
                     }
                     else
                     {
-                        _cells[row, column].Text = game.informationBoards[step].Board[row, column].ToString();
+                        _cells[row, column].Text = game.informationBoards[0].Board[row, column].ToString();
                         _cells[row, column].ForeColor = Color.Gray;
                     }
                 }

@@ -13,5 +13,6 @@ namespace GameСourseWork
         string Name { get; set; }
         char step(int[,] board, Point player, Point opponent);
         void Reset();
+        void ReportGameEnd(bool win);
     }
 }

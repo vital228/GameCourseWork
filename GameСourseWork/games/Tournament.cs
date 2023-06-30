@@ -6,7 +6,6 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace GameСourseWork
 {
@@ -26,13 +25,14 @@ namespace GameСourseWork
         }
 
         public Tournament(string name):this(name, GeneratorBoard.Board.None){}
-        public Tournament(string name ,GeneratorBoard.Board typeBoard)
+        public Tournament(string name , GeneratorBoard.Board typeBoard)
         {
             _players = new List<IArtificialIntelligence>();
             standing = new TableCup<Point>();
             _name = name;
             _typeBoard = typeBoard;
         }
+
 
         public Point this[int i, int j]
         {
@@ -62,6 +62,7 @@ namespace GameСourseWork
 
         public void PlayTournament()
         {
+            Random random = new Random();
             rounds++;
             for (int i = 0; i < _players.Count; i++)
             {
@@ -82,7 +83,9 @@ namespace GameСourseWork
                     {
                         Console.WriteLine("The match between " + _players[i].Name + " and " + _players[j].Name + " ended in a draw");
                     }
-                    game.saveGame(_name + "\\" + _players[i].Name + "-" + _players[j].Name + "_game#" + (standing[i,j].X + standing[i,j].Y));
+
+                    if (random.Next(100) == 63) 
+                        game.saveGame(_name + "\\" + _players[i].Name + "-" + _players[j].Name + "_game#" + (standing[i,j].X + standing[i,j].Y));
                 }
             }
         }
@@ -90,7 +93,10 @@ namespace GameСourseWork
         public void PlayTournament(int n)
         {
             for (int i = 0; i < n; i++)
+            {
+                Console.WriteLine(i);
                 PlayTournament();
+            }
         }
 
         public string ToHtmlTable()

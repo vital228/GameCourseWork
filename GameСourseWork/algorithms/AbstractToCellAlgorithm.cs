@@ -93,9 +93,16 @@ namespace GameСourseWork.algorithms
                 }
             }
             cells.Sort(FunctionSort);
+            int k = 1;
+            while (k<cells.Count && FunctionSort(cells[k-1], cells[k]) == 0)
+            {
+                k++;
+            }
 
-            if (cells.Count > 0)
-                return move[cells[0].direction];
+            if (cells.Count > 0) {
+                Random random= new Random();
+                return move[cells[random.Next(k)].direction];
+            }
             else
                 return move[0];
         }
@@ -113,6 +120,10 @@ namespace GameСourseWork.algorithms
                     availableCells[i, j].Y = i;
                 }
             }
+        }
+
+        public void ReportGameEnd(bool win)
+        {
         }
     }
 }

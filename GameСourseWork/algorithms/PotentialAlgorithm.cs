@@ -11,8 +11,8 @@ namespace GameСourseWork.algorithms
     public class PotentialAlgorithm : AbstractToCellAlgorithm
     {
         public override string Name { get => "Potential"; set { } }
-        int[,] visitsCount;
-        Point lastPosOpp;
+        protected int[,] visitsCount;
+        protected Point lastPosOpp;
         
 
         public PotentialAlgorithm() {
@@ -73,7 +73,7 @@ namespace GameСourseWork.algorithms
                                 int y = i + i1, x = j + j1;
                                 if (Math.Abs(i1) + Math.Abs(j1)<=2 && y>=0 && x>=0 && y<9 && x<9 && availableCells[y, x].direction >= 0)
                                 {
-                                    if (board[8 - y, 8 - x] == 0)
+                                    if (board[8 - y, 8 - x] == 0 || board[y, x] == 0)
                                     {
                                         potential[i, j] += 2 * Math.Max(0, visitsCount[8 - y, 8 - x] - visitsCount[y, x]);
                                     }
@@ -101,10 +101,15 @@ namespace GameСourseWork.algorithms
             visitsCount[player.Y, player.X]++;
             if (mxPoint.Count > 0)
             {
-                // Random random = new Random();
+                Random random = new Random();
                 //int k = random.Next(0, mxPoint.Count);
                 mxPoint.Sort(FunctionSort);
-                return move[mxPoint[0].direction];
+                int k = 1;
+                while (k < mxPoint.Count && FunctionSort(mxPoint[k - 1], mxPoint[k]) == 0)
+                {
+                    k++;
+                }
+                return move[mxPoint[random.Next(k)].direction];
             }
             else
             {

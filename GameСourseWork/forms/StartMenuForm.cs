@@ -1,4 +1,6 @@
-﻿using System;
+﻿using GameСourseWork.forms;
+using GameСourseWork.other;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -33,26 +35,40 @@ namespace GameСourseWork
             DialogResult result = openFileDialog1.ShowDialog(); // Show the dialog.
             if (result == DialogResult.OK) // Test result.
             {
-                string file = openFileDialog1.FileName;
-                string fileName = getNameFile(file);
-                string name1 = fileName.Split('-')[0];
-                string name2 = fileName.Split('-')[1].Split('_')[0];
-                Game game = new Game();
-                string ex = game.loadGame(file);
-                
-                if (ex != null)
+                try
+                {
+                    string file = openFileDialog1.FileName;
+                    string fileName = getNameFile(file);
+                    string name1 = fileName.Split('-')[0];
+                    string name2 = fileName.Split('-')[1].Split('_')[0];
+                    Game game = new Game();
+                    string ex = game.loadGame(file);
+
+                    if (ex != null)
+                    {
+                        MessageBox.Show(
+                            ex,
+                            "Ошибка",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error
+                        );
+                        return;
+                    }
+
+                    GameForm gameForm = new GameForm(game, name1, name2);
+                    gameForm.ShowDialog();
+                }
+                catch(Exception ex)
                 {
                     MessageBox.Show(
-                        ex,
-                        "Ошибка",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Error
-                    );
+                            ex.Message,
+                            "Ошибка",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error
+                        );
                     return;
                 }
-
-                GameForm gameForm = new GameForm(game, name1, name2);
-                gameForm.ShowDialog();
+                
             }
             Console.WriteLine(result);
         }
@@ -67,6 +83,12 @@ namespace GameСourseWork
         {
             ConfigurationPlayGameForm form = new ConfigurationPlayGameForm();
             form.ShowDialog();
+        }
+
+        private void buttonNeural_Click(object sender, EventArgs e)
+        {
+            TrainerNeuralNetwork trainer = new TrainerNeuralNetwork();
+            trainer.Trainer(500);
         }
     }
 }

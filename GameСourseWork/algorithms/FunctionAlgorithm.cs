@@ -12,7 +12,6 @@ namespace GameСourseWork
     {
         public string Name { get => "Function"; set { } }
 
-        private int lastMove;
 
         private bool[,] used;
 
@@ -68,12 +67,10 @@ namespace GameСourseWork
 
         public void Reset()
         {
-            lastMove = -1;
         }
 
         public FunctionAlgorithm()
         {
-            lastMove = -1;
         }
 
 
@@ -129,22 +126,29 @@ namespace GameСourseWork
              bfs(board, new Point(player.X, player.Y + 1), opponent, player)};
             int[] k = { 0, 0, 0, 0 };
             initK(board, player, ref k);
-            int im = 0;
+            List<int> im = new List<int>();
+            im.Add(0);
             int mx = c[0] * (k[0] + 1);
-            if (lastMove >= 0) {
-                im = 3 - lastMove;
-                mx = c[im] * (k[im] + 1);
-            }
+            
             for (int i = 0; i < 4; i++)
             {
+                if (c[i] * (k[i] + 1) == mx)
+                {
+                    im.Add(i);
+                }
                 if (c[i] * (k[i] + 1) > mx)
                 {
-                    im = i;
+                    im.Clear();
+                    im.Add(i);
                     mx = c[i] * (k[i] + 1);
                 }
             }
-            lastMove = im;
-            return move[im];
+            Random random = new Random();
+            return move[im[random.Next(im.Count)]];
+        }
+
+        public void ReportGameEnd(bool win)
+        {
         }
     }
 }

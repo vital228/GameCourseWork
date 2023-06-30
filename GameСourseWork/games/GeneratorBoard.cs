@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms.VisualStyles;
 using static GameСourseWork.games.GeneratorBoard;
 
 namespace GameСourseWork.games
@@ -56,9 +57,10 @@ namespace GameСourseWork.games
             Random random = new Random();
             for (int i = 0; i < board.GetLength(0); i++)
             {
-                for (int j = 0; j < board.GetLength(1); j++)
+                for (int j = i; j < board.GetLength(1); j++)
                 {
                     board[i, j] = random.Next(minValue, maxValue);
+                    board[8 - i, 8 - j] = board[i, j];
                 }
             }
             return board;
@@ -75,7 +77,7 @@ namespace GameСourseWork.games
             Random random = new Random();
             for (int i = 0; i < board.GetLength(0); i++)
             {
-                for (int j = 0; j < board.GetLength(1); j++)
+                for (int j = i; j < board.GetLength(1); j++)
                 {
                     int d = distanceToCentre(i, j);
                     int sum = probabilities[d, 0];
@@ -87,6 +89,7 @@ namespace GameСourseWork.games
                         k++;
                     }
                     board[i, j] = k;
+                    board[8 - i, 8 - j] = board[i, j];
                 }
             }
             return board;
@@ -147,7 +150,7 @@ namespace GameСourseWork.games
             Random random = new Random();
             for (int i = 0; i < 9; i++)
             {
-                for (int j = 0; j < 9; j++)
+                for (int j = i; j < 9; j++)
                 {
                     if ((i < 4 && j < 4) || (j > 4 && i > 4)) {
                         board[i, j] = random.Next(3, 6);
@@ -156,6 +159,7 @@ namespace GameСourseWork.games
                     {
                         board[i, j] = random.Next(1, 3);
                     }
+                    board[8 - i, 8 - j] = board[i, j];
                 }
             }
             return board;
@@ -166,7 +170,7 @@ namespace GameСourseWork.games
             Random random = new Random();
             for (int i = 0; i < 9; i++)
             {
-                for (int j = 0; j < 9; j++)
+                for (int j = i; j < 9; j++)
                 {
                     if ((i < 4 && j < 4) || (j > 4 && i > 4))
                     {
@@ -176,6 +180,7 @@ namespace GameСourseWork.games
                     {
                         board[i, j] = random.Next(3, 6);
                     }
+                    board[8 - i, 8 - j] = board[i, j];
                 }
             }
             return board;
@@ -187,7 +192,7 @@ namespace GameСourseWork.games
             Random random = new Random();
             for (int i = 0; i < 9; i++)
             {
-                for (int j = 0; j < 9; j++)
+                for (int j = i; j < 9; j++)
                 {
                     if (i==4 || j==4)
                     {
@@ -197,6 +202,7 @@ namespace GameСourseWork.games
                     {
                         board[i, j] = random.Next(3, 6);
                     }
+                    board[8 - i, 8 - j] = board[i, j];
                 }
             }
             return board;

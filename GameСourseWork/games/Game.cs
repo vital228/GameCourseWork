@@ -157,10 +157,21 @@ namespace GameСourseWork
             return new_board;
         }
 
+        private int EndGame(int win)
+        {
+            winner = win;
+            player[3 - win] = new Point(-1, -1);
+            if (ai[win] != null)
+                ai[win].ReportGameEnd(true);
+            if (ai[3 - win] != null)
+                ai[3 - win].ReportGameEnd(false);
+            return win;
+        }
+
         public int playGame()
         {
             if (ai[1] == null || ai[2] == null) return -1;
-            if (winner > 0) return winner;
+            if (winner > 0) return EndGame(winner);
             while (true)
             {
                 char move;
@@ -170,8 +181,7 @@ namespace GameСourseWork
                 }
                 catch (Exception e)
                 {
-                    winner = 2;
-                    return 2;
+                    return EndGame(2);
                 }
                 lastTurn = move;
                 int isCorrectMove = movePlayer(move, ref player[1]);
@@ -180,7 +190,7 @@ namespace GameСourseWork
                 if (isCorrectMove == 1) {
                     winner = 2;
                     informationBoards[informationBoards.Count - 1].Player[1] = new Point(-1, -1);
-                    return 2; 
+                    return EndGame(2); 
                 }
                 try
                 {
@@ -189,7 +199,7 @@ namespace GameСourseWork
                 catch(Exception e)
                 {
                     winner = 1;
-                    return 1;
+                    return EndGame(1);
                 }
                 lastTurn = move;
                 isCorrectMove = movePlayer(move, ref player[2]);
@@ -199,14 +209,14 @@ namespace GameСourseWork
                 {
                     winner = 1;
                     informationBoards[informationBoards.Count - 1].Player[2] = new Point(-1, -1);
-                    return 1;
+                    return EndGame(1);
                 }
             }
         }
 
         public int step()
         {
-            if (winner > 0) return winner;
+            if (winner > 0) return EndGame(winner);
             if (ai[isTurn] == null) return -1;
             char move = '\0';
             try
@@ -216,7 +226,7 @@ namespace GameСourseWork
             catch (Exception e)
             {
                 winner = 3 - isTurn;
-                return 3 - isTurn;
+                return EndGame(3 - isTurn);
             }
             lastTurn = move;
             int isCorrectMove = movePlayer(move, ref player[isTurn]);
@@ -226,13 +236,13 @@ namespace GameСourseWork
             {
                 winner = isTurn;
                 informationBoards[informationBoards.Count - 1].Player[3 - isTurn] = new Point(-1, -1);
-                return isTurn;
+                return EndGame(isTurn);
             }
             return 0;
         }
         public int step(char move)
         {
-            if (winner > 0) return winner;
+            if (winner > 0) return EndGame(winner);
             lastTurn = move;
             int isCorrectMove = movePlayer(move, ref player[isTurn]);
             isTurn = 3 - isTurn;
@@ -241,7 +251,7 @@ namespace GameСourseWork
             {
                 winner = isTurn;
                 informationBoards[informationBoards.Count - 1].Player[3 - isTurn] = new Point(-1, -1);
-                return isTurn;
+                return EndGame(isTurn);
             }
             return 0;
         }
@@ -261,6 +271,34 @@ namespace GameСourseWork
             // Сохраняем JSON-строку в файл
             File.WriteAllText(fileName, jsonString);
         }
+
+        public int onePlayer()
+        {
+            int count = 0;
+            while (true)
+            {
+                char move;
+                try
+                {
+                    move = ai[winner].step(ToOneZero(board), player[winner], player[3-winner]);
+                }
+                catch (Exception e)
+                {
+                    return count;
+                }
+                lastTurn = move;
+                int isCorrectMove = movePlayer(move, ref player[winner]);
+                isTurn = winner;
+                count++;
+                informationBoards.Add(createInfoBoard());
+                if (isCorrectMove == 1)
+                {
+                    informationBoards[informationBoards.Count - 1].Player[winner] = new Point(-1, -1);
+                    return count;
+                }
+            }
+        }
+
 
         public string loadGame(string fileName)
         {

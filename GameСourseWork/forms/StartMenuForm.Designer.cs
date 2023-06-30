@@ -31,6 +31,7 @@
             this.buttonNewGame = new System.Windows.Forms.Button();
             this.buttonNewCup = new System.Windows.Forms.Button();
             this.buttonLookGame = new System.Windows.Forms.Button();
+            this.buttonNeural = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonNewGame
@@ -63,11 +64,22 @@
             this.buttonLookGame.UseVisualStyleBackColor = true;
             this.buttonLookGame.Click += new System.EventHandler(this.buttonLookGame_Click);
             // 
+            // buttonNeural
+            // 
+            this.buttonNeural.Location = new System.Drawing.Point(75, 323);
+            this.buttonNeural.Name = "buttonNeural";
+            this.buttonNeural.Size = new System.Drawing.Size(150, 48);
+            this.buttonNeural.TabIndex = 3;
+            this.buttonNeural.Text = "Тренировка нейронки";
+            this.buttonNeural.UseVisualStyleBackColor = true;
+            this.buttonNeural.Click += new System.EventHandler(this.buttonNeural_Click);
+            // 
             // StartMenuForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(282, 353);
+            this.ClientSize = new System.Drawing.Size(282, 408);
+            this.Controls.Add(this.buttonNeural);
             this.Controls.Add(this.buttonLookGame);
             this.Controls.Add(this.buttonNewCup);
             this.Controls.Add(this.buttonNewGame);
@@ -82,5 +94,6 @@
         private System.Windows.Forms.Button buttonNewGame;
         private System.Windows.Forms.Button buttonNewCup;
         private System.Windows.Forms.Button buttonLookGame;
+        private System.Windows.Forms.Button buttonNeural;
     }
 }

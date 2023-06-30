@@ -98,5 +98,9 @@ namespace GameСourseWork
             return new FunctionAlgorithm().step(board, player, opponent);
             
         }
+
+        public void ReportGameEnd(bool win)
+        {
+        }
     }
 }

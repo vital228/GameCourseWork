@@ -1,4 +1,5 @@
 ﻿using GameСourseWork.algorithms;
+using GameСourseWork.other;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -42,6 +43,11 @@ namespace GameСourseWork
             cup.AddPlayer(new ToEdgeBoardAlgorithm());
             cup.AddPlayer(new ToFarthestCellAlgorithm());
             cup.AddPlayer(new PotentialAlgorithm());
+            //cup.AddPlayer(new ChatGPTAlgorithm());
+            NNalgorithm nalgorithm = new NNalgorithm();
+            nalgorithm.network = new NeuralNetwork(new int[4] { 85, 128, 64, 4 });
+            nalgorithm.network.Load("Save.txt");
+            cup.AddPlayer(nalgorithm);
             // TODO: Add an AI algorithm to the tournament. See the example above.
 
             cup.PlayTournament((int)numericUpDown1.Value);

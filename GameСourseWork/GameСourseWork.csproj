@@ -37,6 +37,7 @@
       <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -48,6 +49,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="algorithms\AbstractToCellAlgorithm.cs" />
+    <Compile Include="algorithms\ChatGPTAlgorithm.cs" />
+    <Compile Include="algorithms\ChatGPTAnswer.cs" />
+    <Compile Include="algorithms\NNalgorithm.cs" />
     <Compile Include="algorithms\PotentialAlgorithm.cs" />
     <Compile Include="algorithms\ToCentreAlgorithm.cs" />
     <Compile Include="algorithms\ToEdgeBoardAlgorithm.cs" />
@@ -66,6 +70,12 @@
     </Compile>
     <Compile Include="algorithms\FollowEnemyAlgorithm.cs" />
     <Compile Include="algorithms\FunctionAlgorithm.cs" />
+    <Compile Include="forms\VisitGameForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\VisitGameForm.Designer.cs">
+      <DependentUpon>VisitGameForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="games\GeneratorBoard.cs" />
     <Compile Include="games\TableCup.cs" />
     <Compile Include="games\Tournament.cs" />
@@ -83,6 +93,9 @@
     <Compile Include="forms\PlayGameForm.Designer.cs">
       <DependentUpon>PlayGameForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="other\NeuralNetwork.cs" />
+    <Compile Include="other\NeuralTournament.cs" />
+    <Compile Include="other\TrainerNeuralNetwork.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="forms\StartMenuForm.cs">
@@ -103,6 +116,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="forms\PlayGameForm.resx">
       <DependentUpon>PlayGameForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="forms\VisitGameForm.resx">
+      <DependentUpon>VisitGameForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
