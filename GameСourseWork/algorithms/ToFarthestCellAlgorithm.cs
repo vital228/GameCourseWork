@@ -16,5 +16,10 @@ namespace GameСourseWork.algorithms
         {
             return c2.distance - c1.distance;
         }
+
+        public override object Clone()
+        {
+            return MemberwiseClone();
+        }
     }
 }

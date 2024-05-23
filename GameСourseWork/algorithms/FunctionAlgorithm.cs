@@ -150,5 +150,10 @@ namespace GameСourseWork
         public void ReportGameEnd(bool win)
         {
         }
+
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
     }
 }

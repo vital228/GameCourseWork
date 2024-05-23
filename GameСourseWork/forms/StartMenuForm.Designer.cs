@@ -31,7 +31,8 @@
             this.buttonNewGame = new System.Windows.Forms.Button();
             this.buttonNewCup = new System.Windows.Forms.Button();
             this.buttonLookGame = new System.Windows.Forms.Button();
-            this.buttonNeural = new System.Windows.Forms.Button();
+            this.buttonNash = new System.Windows.Forms.Button();
+            this.buttonGenetic = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonNewGame
@@ -46,7 +47,7 @@
             // 
             // buttonNewCup
             // 
-            this.buttonNewCup.Location = new System.Drawing.Point(75, 150);
+            this.buttonNewCup.Location = new System.Drawing.Point(75, 137);
             this.buttonNewCup.Name = "buttonNewCup";
             this.buttonNewCup.Size = new System.Drawing.Size(150, 50);
             this.buttonNewCup.TabIndex = 1;
@@ -56,7 +57,7 @@
             // 
             // buttonLookGame
             // 
-            this.buttonLookGame.Location = new System.Drawing.Point(75, 240);
+            this.buttonLookGame.Location = new System.Drawing.Point(75, 208);
             this.buttonLookGame.Name = "buttonLookGame";
             this.buttonLookGame.Size = new System.Drawing.Size(150, 50);
             this.buttonLookGame.TabIndex = 2;
@@ -64,22 +65,33 @@
             this.buttonLookGame.UseVisualStyleBackColor = true;
             this.buttonLookGame.Click += new System.EventHandler(this.buttonLookGame_Click);
             // 
-            // buttonNeural
+            // buttonNash
             // 
-            this.buttonNeural.Location = new System.Drawing.Point(75, 323);
-            this.buttonNeural.Name = "buttonNeural";
-            this.buttonNeural.Size = new System.Drawing.Size(150, 48);
-            this.buttonNeural.TabIndex = 3;
-            this.buttonNeural.Text = "Тренировка нейронки";
-            this.buttonNeural.UseVisualStyleBackColor = true;
-            this.buttonNeural.Click += new System.EventHandler(this.buttonNeural_Click);
+            this.buttonNash.Location = new System.Drawing.Point(75, 287);
+            this.buttonNash.Name = "buttonNash";
+            this.buttonNash.Size = new System.Drawing.Size(150, 48);
+            this.buttonNash.TabIndex = 3;
+            this.buttonNash.Text = "Равновесие Нэша";
+            this.buttonNash.UseVisualStyleBackColor = true;
+            this.buttonNash.Click += new System.EventHandler(this.buttonNash_Click);
+            // 
+            // buttonGenetic
+            // 
+            this.buttonGenetic.Location = new System.Drawing.Point(75, 360);
+            this.buttonGenetic.Name = "buttonGenetic";
+            this.buttonGenetic.Size = new System.Drawing.Size(150, 48);
+            this.buttonGenetic.TabIndex = 4;
+            this.buttonGenetic.Text = "Генетический алгоритм";
+            this.buttonGenetic.UseVisualStyleBackColor = true;
+            this.buttonGenetic.Click += new System.EventHandler(this.buttonGenetic_Click);
             // 
             // StartMenuForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(282, 408);
-            this.Controls.Add(this.buttonNeural);
+            this.ClientSize = new System.Drawing.Size(282, 499);
+            this.Controls.Add(this.buttonGenetic);
+            this.Controls.Add(this.buttonNash);
             this.Controls.Add(this.buttonLookGame);
             this.Controls.Add(this.buttonNewCup);
             this.Controls.Add(this.buttonNewGame);
@@ -94,6 +106,7 @@
         private System.Windows.Forms.Button buttonNewGame;
         private System.Windows.Forms.Button buttonNewCup;
         private System.Windows.Forms.Button buttonLookGame;
-        private System.Windows.Forms.Button buttonNeural;
+        private System.Windows.Forms.Button buttonNash;
+        private System.Windows.Forms.Button buttonGenetic;
     }
 }

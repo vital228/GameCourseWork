@@ -27,6 +27,13 @@ namespace GameСourseWork.algorithms
             lastPosOpp = new Point(-1,-1);
         }
 
+        private PotentialAlgorithm(string name, int[,] visitsCount, Point lastPosOpp)
+        {
+            Name = name;
+            this.visitsCount = visitsCount;
+            this.lastPosOpp = lastPosOpp;
+        }
+
         public override void Reset()
         {
             visitsCount = new int[9, 9];
@@ -38,6 +45,21 @@ namespace GameСourseWork.algorithms
                 }
             }
             lastPosOpp = new Point(-1, -1);
+        }
+
+        public void update(Point player, Point opponent)
+        {
+            if (lastPosOpp == new Point(-1, -1) && player == new Point(7, 7))
+            {
+                visitsCount[1, 1] = 1;
+            }
+            else
+            {
+                if (lastPosOpp != new Point(-1, -1))
+                    visitsCount[lastPosOpp.Y, lastPosOpp.X] += 1;
+            }
+            lastPosOpp = opponent;
+            visitsCount[player.Y, player.X]++;
         }
 
         public override char step(int[,] board, Point player, Point opponent)
@@ -121,6 +143,11 @@ namespace GameСourseWork.algorithms
         protected override int FunctionSort(Cell c1, Cell c2)
         {
             return c2.distance - c1.distance;
+        }
+
+        public override object Clone()
+        {
+            return new PotentialAlgorithm(Name, (int[,])visitsCount.Clone(), lastPosOpp);
         }
     }
 }

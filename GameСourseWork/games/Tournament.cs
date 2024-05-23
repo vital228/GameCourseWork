@@ -1,14 +1,23 @@
 ﻿using GameСourseWork.games;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Numerics;
+using System.Reflection;
+using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace GameСourseWork
 {
+    public class NEventArgs : EventArgs
+    {
+        public int N { get; set; }
+    }
+
     public class Tournament
     {
         private List<IArtificialIntelligence> _players;
@@ -18,21 +27,65 @@ namespace GameСourseWork
 
         private TableCup<Point> standing;
 
+        private object locker;
+
+        private int _countRound;
+
+        private int CountRound
+        {
+            get { return _countRound; }
+            set
+            {
+                if (_countRound != value)
+                {
+                    _countRound = value;
+                    if (RoundChange != null) {
+                        var nea = new NEventArgs();
+                        nea.N = value;
+                        RoundChange(this, nea);
+                    }
+                }
+            }
+        }
+        private int N;
+        private bool _endCup = false;
+
+        public bool EndCup
+        {
+            get;
+            set;
+        }
+
+
+        public event EventHandler<NEventArgs> RoundChange;
         private void ResetPlayers(IArtificialIntelligence player1, IArtificialIntelligence player2)
         {
             player1.Reset();
             player2.Reset();
         }
 
+        public int GetCountPlayer()
+        {
+            return _players.Count;
+        }
+
         public Tournament(string name):this(name, GeneratorBoard.Board.None){}
         public Tournament(string name , GeneratorBoard.Board typeBoard)
         {
+            RoundChange += Tournament_RoundChange;
             _players = new List<IArtificialIntelligence>();
             standing = new TableCup<Point>();
             _name = name;
             _typeBoard = typeBoard;
         }
 
+        private void Tournament_RoundChange(object sender, NEventArgs e)
+        {
+            if (_players.Count * _players.Count * N == e.N)
+            {
+                EndCup= true;
+            }
+        }
 
         public Point this[int i, int j]
         {
@@ -60,10 +113,11 @@ namespace GameСourseWork
             standing = new_table;
         }
 
+
         public void PlayTournament()
         {
             Random random = new Random();
-            rounds++;
+
             for (int i = 0; i < _players.Count; i++)
             {
                 for (int j = 0; j < _players.Count; j++)
@@ -83,21 +137,98 @@ namespace GameСourseWork
                     {
                         Console.WriteLine("The match between " + _players[i].Name + " and " + _players[j].Name + " ended in a draw");
                     }
-
+                    CountRound += 1;
                     if (random.Next(100) == 63) 
                         game.saveGame(_name + "\\" + _players[i].Name + "-" + _players[j].Name + "_game#" + (standing[i,j].X + standing[i,j].Y));
                 }
             }
         }
 
+
+        public void PlayTournamentWithParallel(int n)
+        {
+            CountRound = 0;
+            locker = new object();
+            N = n;
+            EndCup = false;
+            rounds += n;
+            List<Thread> threads = new List<Thread>();
+            var numThreads = 100;
+            var toProcess = numThreads;
+            ThreadPool.SetMaxThreads(100,100);
+            var resetEvent = new ManualResetEvent(false);
+            for (int i = 0; i < _players.Count; i++)
+            {
+                for (int j = 0; j < _players.Count; j++)
+                {
+                    int ti = i, tj = j, tn = n;
+                    
+                    ThreadPool.QueueUserWorkItem(
+                        new WaitCallback(delegate (object state) {
+                            PlayGames(ti, tj, tn);
+                            if (Interlocked.Decrement(ref toProcess) == 0) resetEvent.Set();
+                        }), null);
+                    //ThreadPool.UnsafeQueueUserWorkItem(() => PlayGames(ti, tj, tn));
+                    //thread.Start();
+                    //threads.Add(thread);
+                   
+                }
+            }
+            while (!EndCup) { }
+            EndCup = false;
+            for (int i=0; i < threads.Count; i++)
+            {
+                threads[i].Join();
+            }
+        }
+
+        private void PlayGames(int i, int j, int n)
+        {
+            IArtificialIntelligence p1 = (IArtificialIntelligence)_players[i].Clone();
+            IArtificialIntelligence p2 = (IArtificialIntelligence)_players[j].Clone();
+            int w1=0, w2=0;
+            for (int k = 0; k < n; k++)
+            {
+                ResetPlayers(p1, p2);
+
+                Game game = new Game(p1, p2, _typeBoard);
+                int winner = game.playGame();
+                Random random = new Random();
+                if (winner == 1)
+                {
+                    w1++;
+                }
+                else if (winner == 2)
+                {
+                    w2++;
+                }
+                else
+                {
+                    Console.WriteLine("The match between " + _players[i].Name + " and " + _players[j].Name + " ended in a draw");
+                }
+                if (random.Next(1000) == 63)
+                    game.saveGame(_name + "\\" + _players[i].Name + "-" + _players[j].Name + "_game#" + (w1 + w2) +".json");
+            }
+            lock (locker)
+            {
+                standing[i, j] = new Point(standing[i, j].X + w1, standing[i, j].Y + w2);
+                CountRound += n;
+            }
+        }
+
+
+
         public void PlayTournament(int n)
         {
+            CountRound = 0;
             for (int i = 0; i < n; i++)
             {
+                rounds++;
                 Console.WriteLine(i);
                 PlayTournament();
             }
         }
+
 
         public string ToHtmlTable()
         {
@@ -135,6 +266,7 @@ namespace GameСourseWork
                     if (standing[i, j].X - 0.1*rounds >= standing[i, j].Y)
                     {
                         sb.Append("00FF00");
+
                     }else if (standing[i, j].X > standing[i, j].Y)
                     {
                         sb.Append("90EE90");
@@ -154,18 +286,19 @@ namespace GameСourseWork
                     sb.AppendLine($"\">{ standing[i, j].X};{ standing[i, j].Y}</ td > ");
                     sum += standing[i, j].X;
                     sum2 += standing[j, i].Y;
-                    if (standing[i,j].X- 0.1 * rounds >= standing[i, j].Y)
+                    if (10*(standing[i, j].X- standing[i, j].Y) >= rounds)
                     {
                         countWin++;
-                    }else if (Math.Abs(standing[i, j].X - standing[i, j].Y) < 0.1 * rounds)
+                    }
+                    else if (10 * Math.Abs(standing[i, j].X - standing[i, j].Y) < rounds)
                     {
                         countDraw++;
                     }
-                    if (standing[j, i].Y - 0.1 * rounds >= standing[j, i].X)
+                    if (10*(standing[j, i].Y - standing[j, i].X) >= rounds)
                     {
                         countWin2++;
                     }
-                    else if (Math.Abs(standing[j, i].Y - standing[j, i].X) < 0.1 * rounds)
+                    else if (10*Math.Abs(standing[j, i].Y - standing[j, i].X) < rounds)
                     {
                         countDraw2++;
                     }

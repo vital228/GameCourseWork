@@ -267,9 +267,15 @@ namespace GameСourseWork
 
             // Сериализуем список informationBoards в JSON-строку
             string jsonString = JsonConvert.SerializeObject(informationBoards, Formatting.Indented);
-
-            // Сохраняем JSON-строку в файл
-            File.WriteAllText(fileName, jsonString);
+            try
+            {
+                // Сохраняем JSON-строку в файл
+                File.WriteAllText(fileName, jsonString);
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
 
         public int onePlayer()

@@ -1,5 +1,4 @@
 ﻿using GameСourseWork.forms;
-using GameСourseWork.other;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,18 +7,20 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace GameСourseWork
 {
     public partial class StartMenuForm : Form
     {
+        Thread thread;
         public StartMenuForm()
         {
             InitializeComponent();
+            
         }
+
 
         private string getNameFile(string path)
         {
@@ -29,7 +30,7 @@ namespace GameСourseWork
 
         private void buttonLookGame_Click(object sender, EventArgs e)
         {
-            
+               
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
             openFileDialog1.InitialDirectory = AppDomain.CurrentDomain.BaseDirectory;
             DialogResult result = openFileDialog1.ShowDialog(); // Show the dialog.
@@ -85,10 +86,16 @@ namespace GameСourseWork
             form.ShowDialog();
         }
 
-        private void buttonNeural_Click(object sender, EventArgs e)
+        private void buttonGenetic_Click(object sender, EventArgs e)
         {
-            TrainerNeuralNetwork trainer = new TrainerNeuralNetwork();
-            trainer.Trainer(500);
+            ConfigurationGeneticAlgorithmForm form = new ConfigurationGeneticAlgorithmForm();
+            form.ShowDialog();
+        }
+
+        private void buttonNash_Click(object sender, EventArgs e)
+        {
+            ConfigurationNashEquilibriumForm form = new ConfigurationNashEquilibriumForm();
+            form.ShowDialog();
         }
     }
 }

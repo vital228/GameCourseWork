@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace GameСourseWork
 {
-    public interface IArtificialIntelligence
+    public interface IArtificialIntelligence : ICloneable
     {
         string Name { get; set; }
         char step(int[,] board, Point player, Point opponent);

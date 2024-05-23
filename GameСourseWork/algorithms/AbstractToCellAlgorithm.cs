@@ -125,5 +125,7 @@ namespace GameСourseWork.algorithms
         public void ReportGameEnd(bool win)
         {
         }
+
+        public abstract object Clone();
     }
 }

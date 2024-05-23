@@ -12,6 +12,21 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -49,9 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="algorithms\AbstractToCellAlgorithm.cs" />
-    <Compile Include="algorithms\ChatGPTAlgorithm.cs" />
-    <Compile Include="algorithms\ChatGPTAnswer.cs" />
-    <Compile Include="algorithms\NNalgorithm.cs" />
+    <Compile Include="algorithms\MixedStrategy.cs" />
     <Compile Include="algorithms\PotentialAlgorithm.cs" />
     <Compile Include="algorithms\ToCentreAlgorithm.cs" />
     <Compile Include="algorithms\ToEdgeBoardAlgorithm.cs" />
@@ -62,6 +75,18 @@
     <Compile Include="forms\ConfigurationCupForm.Designer.cs">
       <DependentUpon>ConfigurationCupForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="forms\ConfigurationGeneticAlgorithmForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\ConfigurationGeneticAlgorithmForm.Designer.cs">
+      <DependentUpon>ConfigurationGeneticAlgorithmForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="forms\ConfigurationNashEquilibriumForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\ConfigurationNashEquilibriumForm.Designer.cs">
+      <DependentUpon>ConfigurationNashEquilibriumForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="forms\ConfigurationPlayGameForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -70,6 +95,12 @@
     </Compile>
     <Compile Include="algorithms\FollowEnemyAlgorithm.cs" />
     <Compile Include="algorithms\FunctionAlgorithm.cs" />
+    <Compile Include="forms\ProgressBarForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\ProgressBarForm.Designer.cs">
+      <DependentUpon>ProgressBarForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="forms\VisitGameForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -77,6 +108,9 @@
       <DependentUpon>VisitGameForm.cs</DependentUpon>
     </Compile>
     <Compile Include="games\GeneratorBoard.cs" />
+    <Compile Include="games\GeneticAlgorithm.cs" />
+    <Compile Include="games\NashEquilibrium.cs" />
+    <Compile Include="games\PureStrategies.cs" />
     <Compile Include="games\TableCup.cs" />
     <Compile Include="games\Tournament.cs" />
     <Compile Include="games\Game.cs" />
@@ -93,9 +127,6 @@
     <Compile Include="forms\PlayGameForm.Designer.cs">
       <DependentUpon>PlayGameForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="other\NeuralNetwork.cs" />
-    <Compile Include="other\NeuralTournament.cs" />
-    <Compile Include="other\TrainerNeuralNetwork.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="forms\StartMenuForm.cs">
@@ -108,6 +139,12 @@
     <EmbeddedResource Include="forms\ConfigurationCupForm.resx">
       <DependentUpon>ConfigurationCupForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="forms\ConfigurationGeneticAlgorithmForm.resx">
+      <DependentUpon>ConfigurationGeneticAlgorithmForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="forms\ConfigurationNashEquilibriumForm.resx">
+      <DependentUpon>ConfigurationNashEquilibriumForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="forms\ConfigurationPlayGameForm.resx">
       <DependentUpon>ConfigurationPlayGameForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -116,6 +153,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="forms\PlayGameForm.resx">
       <DependentUpon>PlayGameForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="forms\ProgressBarForm.resx">
+      <DependentUpon>ProgressBarForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="forms\VisitGameForm.resx">
       <DependentUpon>VisitGameForm.cs</DependentUpon>
@@ -145,6 +185,31 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Neat\NeatTest\NeatTest.csproj">
+      <Project>{46d4f91d-64cc-4bfc-ac47-bae0b88aa9bb}</Project>
+      <Name>NeatTest</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Neat\Neat\Neat.csproj">
+      <Project>{ce7a5319-a629-4af0-98f6-6aba4845892b}</Project>
+      <Name>Neat</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.8">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.8 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="other\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
