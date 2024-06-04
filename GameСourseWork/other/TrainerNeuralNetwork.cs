@@ -5,10 +5,14 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Neat.Framework;
+using Neat.Config;
+
+
 
 namespace GameСourseWork.other
 {
-    internal class TrainerNeuralNetwork
+    public class TrainerNeuralNetwork
     {
         List<NNalgorithm> bots;
         public List<NeuralNetwork> networks;
@@ -25,7 +29,6 @@ namespace GameСourseWork.other
         {
             if (populationSize % 2 != 0)
                 populationSize = 100;//if population size is not even, sets it to fifty
-
             InitNetworks();
         }
 

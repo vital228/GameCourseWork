@@ -105,7 +105,7 @@ namespace GameСourseWork.games
 
         public int Generations { get { return generations; } }
 
-        public GeneticAlgorithm(int populationSize, int generations, int countGame = 7)
+        public GeneticAlgorithm(int populationSize, int generations, int countGame = 21)
         {
             this.populationSize = populationSize;
             this.generations = generations;
@@ -190,7 +190,7 @@ namespace GameСourseWork.games
         {
             string path = Path.Combine(Directory.GetCurrentDirectory(), this.path);
             Directory.CreateDirectory(path);
-            String file = path + @"\LastPopulation.csv";
+            String file = path + @"\LastPopulation_" +$"{generations}_{populationSize}_{countGame}.csv";
             String separator = ",";
             StringBuilder output = new StringBuilder();
             output.AppendLine(string.Join(separator, heading));
@@ -217,7 +217,7 @@ namespace GameСourseWork.games
         {
             string path = Path.Combine(Directory.GetCurrentDirectory(), this.path);
             Directory.CreateDirectory(path);
-            String file = path + @"\All.csv";
+            String file = path + @"\All_" + $"{generations}_{populationSize}_{countGame}.csv"; ;
             String separator = ",";
             StringBuilder output = new StringBuilder();
             output.AppendLine(string.Join(separator, heading));

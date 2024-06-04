@@ -93,6 +93,12 @@ namespace GameСourseWork
             {
                 cup.AddPlayer(PureStrategies.Get(i));
             }
+            /*
+            for (int i = 0; i < PureStrategies.Count; i++)
+            {
+                cup.AddPlayer(new ArticulationPointsModificationAlgorithm(PureStrategies.Get(i)));
+            }
+            */
 
             ProgressBarForm progressBarForm = new ProgressBarForm();
             progressBarForm.LoadData(cup, (int)numericUpDown1.Value);

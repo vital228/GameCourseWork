@@ -123,6 +123,11 @@ namespace GameСourseWork.algorithms
         {
             EndGame(win);
         }
+
+        public object Clone()
+        {
+            throw new NotImplementedException();
+        }
     }
 
 }

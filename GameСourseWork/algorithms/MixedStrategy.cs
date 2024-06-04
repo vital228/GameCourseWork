@@ -116,7 +116,7 @@ namespace GameСourseWork.algorithms
                             }
                         }
                     }
-                    strategy.Strategy.step(board, player, opponent);
+                    return strategy.Strategy.step(board, player, opponent);
                 }
             }
             return strategies[0].Strategy.step(board, player, opponent);

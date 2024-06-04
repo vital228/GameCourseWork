@@ -117,6 +117,7 @@ namespace GameСourseWork.games
         public void PlayTournament()
         {
             cup = new Tournament(Name);
+            cup.RoundChange += Cup_RoundChange;
             foreach (MixedStrategy i in mixedStrategies)
             {
                 cup.AddPlayer(i);
@@ -129,8 +130,19 @@ namespace GameСourseWork.games
                     standing[i, j] = cup[i, j];
                 }
             }
-        }
+            if (cup.GetCountPlayer() < 20)
+            {
 
+                string text = cup.ToHtmlTable();
+                string path = @"Nash\"+ Name + "_standings.html";
+                // сохраняем текст в файл
+                File.WriteAllText(path, text);
+            }
+        }
+        private void Cup_RoundChange(object sender, NEventArgs e)
+        {
+            CountRound = e.N;
+        }
         public List<StandingMixedStrategies> Find(bool isFirst, bool onlyWin)
         {
             List<StandingMixedStrategies> standingsMixedStrategies = new List<StandingMixedStrategies>();
@@ -156,7 +168,7 @@ namespace GameСourseWork.games
                 }
                 if (onlyWin)
                 {
-                    if (standingStrategies.AVG >= 50)
+                    if (standingStrategies.AVG >= CountGames/2)
                     {
                         standingsMixedStrategies.Add(standingStrategies);
                     }
@@ -170,7 +182,6 @@ namespace GameСourseWork.games
         
             return standingsMixedStrategies;
         }
-
         public void SaveStanding(string fileName, List<StandingMixedStrategies> standingsMixedStrategies)
         {
             string path = Path.Combine(Directory.GetCurrentDirectory(), this.path);
@@ -196,7 +207,5 @@ namespace GameСourseWork.games
             }
             Console.WriteLine("The data has been successfully saved to the CSV file");
         }
-
-
     }
 }

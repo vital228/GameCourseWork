@@ -16,6 +16,8 @@ namespace GameСourseWork
         private Game game;
         private int winner;
 
+        
+
         public PlayGameForm(Game game)
         {
             InitializeComponent();
@@ -23,6 +25,7 @@ namespace GameСourseWork
 
             // Создаем кнопки для каждой клетки поля и добавляем их в таблицу
             _cells = new Button[Rows, Columns];
+
             for (var row = 0; row < Rows; row++)
             {
                 for (var column = 0; column < Columns; column++)

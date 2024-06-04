@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="algorithms\AbstractToCellAlgorithm.cs" />
+    <Compile Include="algorithms\ArticulationPointsModificationAlgorithm.cs" />
     <Compile Include="algorithms\MixedStrategy.cs" />
     <Compile Include="algorithms\PotentialAlgorithm.cs" />
     <Compile Include="algorithms\ToCentreAlgorithm.cs" />

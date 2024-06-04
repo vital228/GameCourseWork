@@ -1,4 +1,5 @@
 ﻿using GameСourseWork.algorithms;
+using GameСourseWork.games;
 using System;
 using System.Windows.Forms;
 using static GameСourseWork.games.GeneratorBoard;
@@ -11,21 +12,25 @@ namespace GameСourseWork
         {
             InitializeComponent();
             comboBoxPlayer1.Items.Add("Человек");
-            comboBoxPlayer1.Items.Add(new FunctionAlgorithm());
-            comboBoxPlayer1.Items.Add(new FollowEnemyAlgorithm());
-            comboBoxPlayer1.Items.Add(new ToCentreAlgorithm());
-            comboBoxPlayer1.Items.Add(new ToEdgeBoardAlgorithm());
-            comboBoxPlayer1.Items.Add(new ToFarthestCellAlgorithm());
-            comboBoxPlayer1.Items.Add(new PotentialAlgorithm());
+            for (int i = 0; i < PureStrategies.Count; i++)
+            {
+                comboBoxPlayer1.Items.Add(PureStrategies.Get(i));
+            }
+            for (int i = 0; i < PureStrategies.Count; i++)
+            {
+                comboBoxPlayer1.Items.Add(new ArticulationPointsModificationAlgorithm(PureStrategies.Get(i)));
+            }
             //comboBoxPlayer1.Items.Add(new ChatGPTAlgorithm());
             // TODO: Add an AI algorithm for selecting the first player for the game. See the example above.
             comboBoxPlayer2.Items.Add("Человек");
-            comboBoxPlayer2.Items.Add(new FunctionAlgorithm());
-            comboBoxPlayer2.Items.Add(new FollowEnemyAlgorithm());
-            comboBoxPlayer2.Items.Add(new ToCentreAlgorithm());
-            comboBoxPlayer2.Items.Add(new ToEdgeBoardAlgorithm());
-            comboBoxPlayer2.Items.Add(new ToFarthestCellAlgorithm());
-            comboBoxPlayer2.Items.Add(new PotentialAlgorithm());
+            for (int i = 0; i < PureStrategies.Count; i++)
+            {
+                comboBoxPlayer2.Items.Add(PureStrategies.Get(i));
+            }
+            for (int i = 0; i < PureStrategies.Count; i++)
+            {
+                comboBoxPlayer2.Items.Add(new ArticulationPointsModificationAlgorithm(PureStrategies.Get(i)));
+            }
             //comboBoxPlayer2.Items.Add(new ChatGPTAlgorithm());
             // TODO: Add an AI algorithm for selecting the second player for the game. See the example above.
             comboBoxPlayer1.SelectedIndex = 0;

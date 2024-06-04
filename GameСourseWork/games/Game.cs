@@ -175,6 +175,7 @@ namespace GameСourseWork
             while (true)
             {
                 char move;
+                
                 try
                 {
                     move = ai[1].step(ToOneZero(board), player[1], player[2]);
@@ -183,6 +184,7 @@ namespace GameСourseWork
                 {
                     return EndGame(2);
                 }
+                //move = ai[1].step(ToOneZero(board), player[1], player[2]);
                 lastTurn = move;
                 int isCorrectMove = movePlayer(move, ref player[1]);
                 isTurn = 2;
