@@ -134,7 +134,7 @@ namespace GameСourseWork
             {
                 ai2 = null;
             }
-            else if (comboBoxPlayer1.SelectedItem.ToString() == "Mixed Strategy")
+            else if (comboBoxPlayer2.SelectedItem.ToString() == "Mixed Strategy")
             {
                 int sum = 0;
                 List<WeightStrategy> weightStrategies = new List<WeightStrategy>();
