@@ -92,56 +92,34 @@ namespace GameСourseWork
 
         private int movePlayer(char move, ref Point player)
         {
-            switch (move)
+            if (canStep(move))
             {
-                case 'R':
-                    if (isMoveAllowed(new Point(player.X + 1, player.Y)))
-                    {
+                switch (move)
+                {
+                    case 'R':
                         board[player.Y, player.X]--;
                         player.X++;
-                    }
-                    else
-                    {
-                        return 1;
-                    }
-                    break;
-                case 'L':
-                    if (isMoveAllowed(new Point(player.X - 1, player.Y)))
-                    {
+                        break;
+                    case 'L':
                         board[player.Y, player.X]--;
                         player.X--;
-                    }
-                    else
-                    {
-                        return 1;
-                    }
-                    break;
-                case 'U':
-                    if (isMoveAllowed(new Point(player.X, player.Y - 1)))
-                    {
+                        break;
+                    case 'U':
                         board[player.Y, player.X]--;
                         player.Y--;
-                    }
-                    else
-                    {
-                        return 1;
-                    }
-                    break;
-                case 'D':
-                    if (isMoveAllowed(new Point(player.X, player.Y + 1)))
-                    {
+                        break;
+                    case 'D':
                         board[player.Y, player.X]--;
                         player.Y++;
-                    }
-                    else
-                    {
+                        break;
+                    default:
                         return 1;
-                    }
-                    break;
-                default:
-                    return 1;
+                }
+                return 0;
             }
-            return 0;
+            else {
+                return 1;
+            }
         }
         
         private int[,] ToOneZero(int[,] board)
@@ -261,8 +239,18 @@ namespace GameСourseWork
         public bool canStep(char move)
         {
             Point player0 = player[isTurn];
-            int isCorrectMove = movePlayer(move, ref player0);
-            return isCorrectMove == 0;
+            switch (move){
+                case 'R':
+                    return (isMoveAllowed(new Point(player0.X + 1, player0.Y)));
+                case 'L':
+                    return (isMoveAllowed(new Point(player0.X - 1, player0.Y)));
+                case 'U':
+                    return (isMoveAllowed(new Point(player0.X, player0.Y - 1)));
+                case 'D':
+                    return (isMoveAllowed(new Point(player0.X, player0.Y + 1)));
+                default:
+                    return false;
+            }
         }
         public void saveGame(string fileName)
         {

@@ -80,6 +80,11 @@ namespace GameСourseWork.algorithms
             set {}
         }
 
+        public override string ToString()
+        {
+            return "Mixed Strategy";
+        }
+
 
         
 

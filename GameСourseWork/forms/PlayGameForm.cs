@@ -74,11 +74,8 @@ namespace GameСourseWork
 
         private void buttonShow_Click(object sender, EventArgs e)
         {
-          
-
             timer.Enabled = true;
             timer.Start();
-            
         }
 
 
